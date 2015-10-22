@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="conf"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="libs/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="libs/commons-pool2-2.3.jar"/>
+	<classpathentry kind="lib" path="libs/druid-1.0.15.jar"/>
+	<classpathentry kind="lib" path="libs/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="libs/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="libs/jedis-2.7.3.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="libs/mysql-connector-java-5.1.36.jar"/>
+	<classpathentry kind="lib" path="libs/netty-all-4.0.32.Final.jar"/>
+	<classpathentry kind="lib" path="libs/spring-aop-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-beans-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-context-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-context-support-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-core-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-expression-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-jdbc-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-orm-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-test-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring-tx-4.2.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/commons-codec-1.9.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
