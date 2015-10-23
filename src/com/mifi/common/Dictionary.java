@@ -15,6 +15,10 @@ public class Dictionary {
 	public final static Integer SYSTEM_ERROT =500;//系统错误
 	
 	
+	public final static Integer STATUS_NORMAL=1;//数据库状态   正常
+	public final static Integer STATUS_DISABLED=0;//数据库状态   废弃
+	
+	
 	public static Map<String, Object> MIFI_SERVICES=new ConcurrentHashMap<String, Object>();//service 对象
 	
 	
