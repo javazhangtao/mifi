@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
-import com.mifi.service.GenericService;
+import com.mifi.main.GenericService;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
