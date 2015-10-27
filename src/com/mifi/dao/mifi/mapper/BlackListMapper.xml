@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mifi.dao.mifi.BlackListMapper">
+	<resultMap type="com.mifi.po.mifi.BlackList" id="blackList"/>
+	
+	<select id="selectAll" resultMap="blackList">
+		SELECT * FROM mifi_black_list ORDER BY modify_time DESC
+	</select>
+	
+	<select id="selectByBlackCount" parameterType="String" resultType="Integer">
+		SELECT COUNT(1) FROM mifi_black_list WHERE `status`= ${@com.mifi.common.Dictionary@STATUS_NORMAL} 
+		AND (black_ip=#{_black} or black_mac=#{_black} or black_phone=#{_black}) 
+	</select>
+</mapper>

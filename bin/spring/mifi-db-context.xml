@@ -35,4 +35,15 @@
 		<!-- 测试有效用的SQL Query -->  
         <property name="validationQuery" value="SELECT 'x'" />
 	</bean>
+	
+	<bean id="mifi_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+       <property name="dataSource" ref="mifi_dataSource" />  
+       <property name="mapperLocations" value="classpath*:com/mifi/dao/mifi/mapper/*Mapper.xml"></property> 
+       <property name="typeAliasesPackage" value="com.mifi.po.mifi" /> 
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+       <property name="basePackage" value="com.mifi.dao.mifi" />  
+    </bean>
+	
 </beans>

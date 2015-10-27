@@ -13,6 +13,7 @@ public class GenericEntity implements Serializable{
 	private Long id;
 	private Date createTime ;
 	private Date modifyTime ;
+	
 	public Long getId() {
 		return id;
 	}

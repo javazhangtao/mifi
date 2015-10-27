@@ -10,7 +10,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import com.mifi.common.Constants;
 import com.mifi.common.Dictionary;
 import com.mifi.main.proxy.MifiServer;
 

@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
-import com.mifi.main.GenericService;
+import com.mifi.main.GenericServer;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
@@ -41,7 +41,7 @@ public class HttpCoreServerHandler extends ChannelInboundHandlerAdapter {
 			if(HttpHeaders.is100ContinueExpected(req)){
 				ctx.write(new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE));
 			}
-			String _result=new GenericService(req).handler();
+			String _result=new GenericServer(req).handler();
 			FullHttpResponse  response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(_result.getBytes()));
 			response.headers().set(Names.CONTENT_TYPE, "text/html; charset=utf-8");
 			response.headers().set(Names.CONTENT_LENGTH, response.content().readableBytes());

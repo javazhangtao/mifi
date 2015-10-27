@@ -12,7 +12,7 @@ public class Dictionary {
 	
 	public final static Integer CODE_PARAM_NULL =101;//参数为空
 	public final static Integer CODE_RESOURCE_NOT_FOUNT =104;//资源不存在
-	public final static Integer SYSTEM_ERROT =500;//系统错误
+	public final static Integer CODE_SYSTEM_ERROT =500;//系统错误
 	
 	
 	public final static Integer STATUS_NORMAL=1;//数据库状态   正常
