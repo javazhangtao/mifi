@@ -1,5 +1,6 @@
 package com.mifi.main;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,10 @@ import io.netty.handler.codec.http.multipart.DefaultHttpDataFactory;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData.HttpDataType;
+/**
+ * 通用server对外接口暴露解析
+ *
+ */
 public class GenericServer{
 	
 	final String key=Dictionary.getProperty("APP_AES_KEY");
@@ -62,19 +67,19 @@ public class GenericServer{
 				if(null!=targetObject){
 					params.remove("cln");
 					params.remove("mod");
-					String[] _ps=new String[params.size()];
 					Class<?>[] _cs=new Class<?>[params.size()];
+					 Map<String, String> _parameters=new HashMap<String, String>();
 					int i=0;
 					for (Entry<String, List<String>> e : params.entrySet()) {
 						_cs[i]=String.class;
-						String _value=null ;
 						if(null!=e.getValue() && e.getValue().size()>0)
-							_value=e.getValue().get(0);
-						_ps[i]=_value;
+							_parameters.put(e.getKey(), Strings.nullToEmpty(e.getValue().get(0)));
+						else
+							_parameters.put(e.getKey(), "");
 						i++;
 					}
 					CGLibCode cgLibCode=new CGLibCode();
-					return cgLibCode.execute(targetObject, mod, _cs, _ps).toString();
+					return cgLibCode.execute(targetObject, mod, _cs, _parameters).toString();
 				}else{
 					ResponceInfo responceInfo=new ResponceInfo(); 
 					responceInfo.setCode(Dictionary.CODE_RESOURCE_NOT_FOUNT);
@@ -89,11 +94,12 @@ public class GenericServer{
 			}
 		} catch (Exception e) {
 			ResponceInfo responceInfo=new ResponceInfo(); 
-			responceInfo.setCode(Dictionary.CODE_PARAM_NULL);
+			responceInfo.setCode(Dictionary.CODE_SYSTEM_ERROT);
 			responceInfo.setMessage(" SYSTEM ERROR ");
 			return responceInfo.toString();
 		}
 	}
+	
 	
 	
 	/**
@@ -109,6 +115,7 @@ public class GenericServer{
 		Map<String, List<String>> params=new HashMap<String, List<String>>();
 		params = queryStringDecoder.parameters();
 		String q = ParamsUtils.getParamsToValue(srcUrl, "q");
+		q = q.replaceAll("%20", "+");
 		q = HttpUrlDecode.decode(q, "UTF-8");
 		String url="xxx?" + CryptAES.Decrypt(key, q);
 		queryStringDecoder = new QueryStringDecoder(url);

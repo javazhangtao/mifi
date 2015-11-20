@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.UserMapper" >
+	<resultMap id="User" type="com.mifi.po.mifi.User" >
+		<id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="phone" property="phone" jdbcType="VARCHAR" />
+	    <result column="password" property="password" jdbcType="VARCHAR" />
+	    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+	    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+	    <result column="gender" property="gender" jdbcType="INTEGER" />
+	    <result column="birth" property="birth" jdbcType="DATE" />
+	    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+	    <result column="city" property="city" jdbcType="BIGINT" />
+	    <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+	    <result column="user_type" property="userType" jdbcType="INTEGER" />
+	    <result column="recommender" property="recommender" jdbcType="BIGINT" />
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+	    <result column="status" property="status" jdbcType="INTEGER" />
+	    <result column="head" property="head" jdbcType="VARCHAR" />
+	    <result column="car_number" property="carNumber" jdbcType="VARCHAR" />
+	    <result column="driving_card" property="drivingCard" jdbcType="VARCHAR" />
+	    <result column="driving_license" property="drivingLicense" jdbcType="VARCHAR" />
+	    <result column="alipay" property="alipay" jdbcType="VARCHAR" />
+	    <result column="intro" property="intro" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	
+	<select id="getUser" resultMap="User" parameterType="User" >
+	    select * from mifi_user
+	    where phone = #{phone,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  	</select>
+  	
+  	<select id="getUserByPhone" resultMap="User" parameterType="String" >
+	    select * from mifi_user
+	    where phone = #{phone,jdbcType=VARCHAR}
+  	</select>
+  	
+  	<select id="getUserByInvite" resultMap="User" parameterType="String" >
+	    select * from mifi_user
+	    where invite_code = #{inviteCode,jdbcType=VARCHAR}
+  	</select>
+  	
+  	<select id="getUserById" resultMap="User" parameterType="java.lang.Long" >
+	    select * from mifi_user
+	    where id = #{id,jdbcType=BIGINT}
+  	</select>
+  	
+  	<select id="getUserGeneralizeTotal" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+	    select count(1) from mifi_user
+	    where recommender = #{recommender,jdbcType=BIGINT}
+  	</select>
+  	
+  	<select id="getUserGeneralize" resultType="java.lang.Integer" >
+	    select count(1) from mifi_user
+	    where recommender = #{userId,jdbcType=BIGINT} and create_time &gt;= #{beginTime,jdbcType=TIMESTAMP} and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+  	</select>
+  	
+  	<update id="update" parameterType="User" >
+	    update mifi_user
+	    <set >
+	      <if test="phone != null" >
+	        phone = #{phone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="password != null" >
+	        password = #{password,jdbcType=VARCHAR},
+	      </if>
+	      <if test="realName != null" >
+	        real_name = #{realName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="nickName != null" >
+	        nick_name = #{nickName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="gender != null" >
+	        gender = #{gender,jdbcType=INTEGER},
+	      </if>
+	      <if test="birth != null" >
+	        birth = #{birth,jdbcType=DATE},
+	      </if>
+	      <if test="cardId != null" >
+	        card_id = #{cardId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="city != null" >
+	        city = #{city,jdbcType=BIGINT},
+	      </if>
+	      <if test="inviteCode != null" >
+	        invite_code = #{inviteCode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="userType != null" >
+	        user_type = #{userType,jdbcType=INTEGER},
+	      </if>
+	      <if test="recommender != null" >
+	        recommender = #{recommender,jdbcType=BIGINT},
+	      </if>
+	      <if test="createTime != null" >
+	        create_time = #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="modifyTime != null" >
+	        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="status != null" >
+	        status = #{status,jdbcType=INTEGER},
+	      </if>
+	      <if test="head != null" >
+	        head = #{head,jdbcType=VARCHAR},
+	      </if>
+	      <if test="carNumber != null" >
+	        car_number = #{carNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="drivingCard != null" >
+	        driving_card = #{drivingCard,jdbcType=VARCHAR},
+	      </if>
+	      <if test="drivingLicense != null" >
+	        driving_license = #{drivingLicense,jdbcType=VARCHAR},
+	      </if>
+	      <if test="alipay != null" >
+	        alipay = #{alipay,jdbcType=VARCHAR},
+	      </if>
+	      <if test="intro != null" >
+	        intro = #{intro,jdbcType=LONGVARCHAR},
+	      </if>
+	    </set>
+	    where id = #{id,jdbcType=BIGINT}
+	  </update>
+  
+	<insert id="insert" parameterType="User" >
+	    insert into mifi_user
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        id,
+	      </if>
+	      <if test="phone != null" >
+	        phone,
+	      </if>
+	      <if test="password != null" >
+	        password,
+	      </if>
+	      <if test="realName != null" >
+	        real_name,
+	      </if>
+	      <if test="nickName != null" >
+	        nick_name,
+	      </if>
+	      <if test="gender != null" >
+	        gender,
+	      </if>
+	      <if test="birth != null" >
+	        birth,
+	      </if>
+	      <if test="cardId != null" >
+	        card_id,
+	      </if>
+	      <if test="city != null" >
+	        city,
+	      </if>
+	      <if test="inviteCode != null" >
+	        invite_code,
+	      </if>
+	      <if test="userType != null" >
+	        user_type,
+	      </if>
+	      <if test="recommender != null" >
+	        recommender,
+	      </if>
+	      <if test="createTime != null" >
+	        create_time,
+	      </if>
+	      <if test="modifyTime != null" >
+	        modify_time,
+	      </if>
+	      <if test="status != null" >
+	        status,
+	      </if>
+	      <if test="head != null" >
+	        head,
+	      </if>
+	      <if test="carNumber != null" >
+	        car_number,
+	      </if>
+	      <if test="drivingCard != null" >
+	        driving_card,
+	      </if>
+	      <if test="drivingLicense != null" >
+	        driving_license,
+	      </if>
+	      <if test="alipay != null" >
+	        alipay,
+	      </if>
+	      <if test="intro != null" >
+	        intro,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        #{id,jdbcType=BIGINT},
+	      </if>
+	      <if test="phone != null" >
+	        #{phone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="password != null" >
+	        #{password,jdbcType=VARCHAR},
+	      </if>
+	      <if test="realName != null" >
+	        #{realName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="nickName != null" >
+	        #{nickName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="gender != null" >
+	        #{gender,jdbcType=INTEGER},
+	      </if>
+	      <if test="birth != null" >
+	        #{birth,jdbcType=DATE},
+	      </if>
+	      <if test="cardId != null" >
+	        #{cardId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="city != null" >
+	        #{city,jdbcType=BIGINT},
+	      </if>
+	      <if test="inviteCode != null" >
+	        #{inviteCode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="userType != null" >
+	        #{userType,jdbcType=INTEGER},
+	      </if>
+	      <if test="recommender != null" >
+	        #{recommender,jdbcType=BIGINT},
+	      </if>
+	      <if test="createTime != null" >
+	        #{createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="modifyTime != null" >
+	        #{modifyTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="status != null" >
+	        #{status,jdbcType=INTEGER},
+	      </if>
+	      <if test="head != null" >
+	        #{head,jdbcType=VARCHAR},
+	      </if>
+	      <if test="carNumber != null" >
+	        #{carNumber,jdbcType=VARCHAR},
+	      </if>
+	      <if test="drivingCard != null" >
+	        #{drivingCard,jdbcType=VARCHAR},
+	      </if>
+	      <if test="drivingLicense != null" >
+	        #{drivingLicense,jdbcType=VARCHAR},
+	      </if>
+	      <if test="alipay != null" >
+	        #{alipay,jdbcType=VARCHAR},
+	      </if>
+	      <if test="intro != null" >
+	        #{intro,jdbcType=LONGVARCHAR},
+	      </if>
+	    </trim>
+	 </insert>
+  
+</mapper>

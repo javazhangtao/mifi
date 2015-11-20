@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.DeviceApplyMapper">
+	<resultMap id="DeviceApply" type="com.mifi.po.mifi.DeviceApply">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="INTEGER"/>
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="user_qq" property="userQq" jdbcType="VARCHAR" />
+		<result column="delivery_address" property="deliveryAddress" jdbcType="VARCHAR" />
+		<result column="card_front" property="cardFront" jdbcType="VARCHAR" />
+		<result column="card_back" property="cardBack" jdbcType="VARCHAR" />
+		<result column="card_num" property="cardNum" jdbcType="VARCHAR" />
+		<result column="car_num" property="carNum" jdbcType="VARCHAR"/>
+		<result column="driving_card" property="drivingCard" jdbcType="VARCHAR" />
+		<result column="driving_license" property="drivingLicense" jdbcType="VARCHAR" />
+		<result column="apply_status" property="applyStatus" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="getAllDeviceApply" resultMap="DeviceApply" >
+		select * from mifi_device_apply		
+	</select> 
+	<select id="getDeviceApplyById" resultMap="DeviceApply" parameterType="Long">
+		select * from mifi_device_apply	
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<insert id="insertDeviceApply" parameterType="DeviceApply" >
+	    insert into mifi_device_apply
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        id,
+	      </if>
+	      <if test="realName != null" >
+	        real_name,
+	      </if>
+	      <if test="phoneNum != null" >
+	        phone_num,
+	      </if>
+	      <if test="gender != null" >
+	       gender,
+	      </if>
+	      <if test="email != null" >
+	       email,
+	      </if>
+	      <if test="userQq != null" >
+	        user_qq,
+	      </if>
+	      <if test="deliveryAddress != null" >
+	        delivery_address,
+	      </if>
+	      <if test="cardFront != null" >
+	        card_front,
+	      </if>
+	      <if test="cardBack != null" >
+	       card_back,
+	      </if>
+	      <if test="cardNum != null" >
+	        card_num,
+	      </if>
+	      <if test="carNum != null" >
+	        car_num,
+	      </if>
+	      <if test="drivingCard != null" >
+	        driving_card,
+	      </if>
+	      <if test="drivingLicense != null" >
+	        driving_license,
+	      </if>	 
+	      <if test="applyStatus != null" >
+	        apply_status,
+	      </if>	      
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	       <if test="id != null" >
+	        #{id,jdbcType=BIGINT},
+	      </if>
+	      <if test="realName != null" >
+	       #{realName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="phoneNum != null" >
+	        #{phoneNum,jdbcType=VARCHAR},
+	      </if>
+	      <if test="gender != null" >
+	       #{gender,jdbcType=INTEGER},
+	      </if>
+	      <if test="email != null" >
+	       #{email,jdbcType=VARCHAR},
+	      </if>
+	      <if test="userQq != null" >
+	       #{userQq,jdbcType=VARCHAR},
+	      </if>
+	      <if test="deliveryAddress != null" >
+	        #{deliveryAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="cardFront != null" >
+	         #{cardFront,jdbcType=VARCHAR},
+	      </if>
+	      <if test="cardBack != null" >
+	       #{cardBack,jdbcType=VARCHAR},
+	      </if>
+	      <if test="cardNum != null" >
+	        #{cardNum,jdbcType=VARCHAR},
+	      </if>
+	      <if test="carNum != null" >
+	        #{carNum,jdbcType=VARCHAR},
+	      </if>
+	      <if test="drivingCard != null" >
+	        #{drivingCard,jdbcType=VARCHAR},
+	      </if>
+	      <if test="drivingLicense != null" >
+	        #{drivingLicense,jdbcType=VARCHAR},
+	      </if>
+	       <if test="applyStatus != null" >
+	         #{applyStatus,jdbcType=INTEGER},
+	      </if>	  	 
+	    </trim>
+	 </insert>
+
+</mapper> 

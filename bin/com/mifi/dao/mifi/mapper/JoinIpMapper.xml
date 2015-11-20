@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.JoinIpMapper" >
+  <resultMap id="JoinIp" type="com.mifi.po.mifi.JoinIp" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="device_ip" property="deviceIp" jdbcType="VARCHAR" />
+    <result column="join_type" property="joinType" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="join_user_id" property="joinUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="getUserJoinDetailByDeviceMac" resultMap="JoinIp" >
+    select * from mifi_join_ip
+    where device_ip = #{deviceIp} and join_user_id=#{joinUserId} and join_type=#{joinType} order by modify_time desc limit 1
+  </select>
+  <insert id="insert" parameterType="com.mifi.po.mifi.JoinIp" >
+    insert into mifi_join_ip (id, device_ip, join_type, 
+      user_id, join_user_id, create_time, 
+      modify_time)
+    values (#{id,jdbcType=BIGINT}, #{deviceIp,jdbcType=VARCHAR}, #{joinType,jdbcType=INTEGER}, 
+      #{userId,jdbcType=BIGINT}, #{joinUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mifi.po.mifi.JoinIp" >
+    insert into mifi_join_ip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deviceIp != null" >
+        device_ip,
+      </if>
+      <if test="joinType != null" >
+        join_type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="joinUserId != null" >
+        join_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="deviceIp != null" >
+        #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="joinType != null" >
+        #{joinType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="joinUserId != null" >
+        #{joinUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

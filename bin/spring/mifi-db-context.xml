@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:tx="http://www.springframework.org/schema/tx" 
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
-	
-	<bean id="mifi_dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
-       	<property name="url" value="${jdbc.mifi.url}" />
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="mifi_dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="url" value="${jdbc.mifi.url}" />
 		<property name="username" value="${jdbc.mifi.username}" />
 		<property name="password" value="${jdbc.mifi.password}" />
-		<!-- 驱动名称 -->  
-        <property name="DriverClassName" value="${jdbc.mifi.driverClassName}" /> 
-        <!-- 获取连接时测试是否有效 -->
+		<!-- 驱动名称 -->
+		<property name="DriverClassName" value="${jdbc.mifi.driverClassName}" />
+		<!-- 获取连接时测试是否有效 -->
 		<property name="testOnBorrow" value="false" />
 		<!-- 归还连接时测试是否有效 -->
 		<property name="testOnReturn" value="false" />
@@ -27,23 +28,42 @@
 		<property name="minIdle" value="${druid.minIdle}" />
 		<property name="maxActive" value="${druid.maxActive}" />
 		<!-- 配置获取连接等待超时的时间 -->
-		<property name="maxWait" value="${druid.maxWait}" /> 
+		<property name="maxWait" value="${druid.maxWait}" />
 		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
 		<property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
 		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
 		<property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
-		<!-- 测试有效用的SQL Query -->  
-        <property name="validationQuery" value="SELECT 'x'" />
+		<!-- 测试有效用的SQL Query -->
+		<property name="validationQuery" value="SELECT 'x'" />
 	</bean>
-	
-	<bean id="mifi_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
-       <property name="dataSource" ref="mifi_dataSource" />  
-       <property name="mapperLocations" value="classpath*:com/mifi/dao/mifi/mapper/*Mapper.xml"></property> 
-       <property name="typeAliasesPackage" value="com.mifi.po.mifi" /> 
+
+	<bean id="mifi_sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="mifi_dataSource" />
+		<property name="mapperLocations"
+			value="classpath*:com/mifi/dao/mifi/mapper/*Mapper.xml"></property>
+		<property name="typeAliasesPackage" value="com.mifi.po.mifi" />
 	</bean>
-	
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
-       <property name="basePackage" value="com.mifi.dao.mifi" />  
-    </bean>
-	
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mifi.dao.mifi" />
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mifi_dataSource" />
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.mifi.service.*.*(..))"
+			id="pointCut" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut" />
+	</aop:config>
+
 </beans>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.MobileAreaMapper" >
+  <resultMap id="MobileArea" type="com.mifi.po.mifi.MobileArea" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mobile_number" property="mobileNumber" jdbcType="VARCHAR" />
+    <result column="mobile_area" property="mobileArea" jdbcType="VARCHAR" />
+    <result column="mobile_type" property="mobileType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectAreaById" resultMap="MobileArea" parameterType="String">
+  	select * from mifi_mobile where mobile_number = #{phone,jdbcType=BIGINT}
+  </select>
+  
+</mapper>

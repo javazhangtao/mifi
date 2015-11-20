@@ -18,7 +18,7 @@ public class BlackListTest {
 	@Test
 	public void Test(){
 		try {
-			System.out.println(blackListService.isExistBlack("18611431686"));
+			System.out.println(blackListService.isExistBlack("18611431686")); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

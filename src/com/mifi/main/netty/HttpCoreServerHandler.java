@@ -1,5 +1,7 @@
 package com.mifi.main.netty;
 
+import java.net.InetSocketAddress;
+import java.net.URI;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -37,7 +39,35 @@ public class HttpCoreServerHandler extends ChannelInboundHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		if (msg instanceof HttpRequest){
 			HttpRequest req = (HttpRequest) msg;
+			String clientIP = req.headers().get("X-Forwarded-For");
+			if(clientIP == null){
+				InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+				clientIP = insocket.getAddress().getHostAddress();
+			}
+//			HttpRequest request = (HttpServletRequest) msg;
 			log.info(req.getUri());
+//			String ip = req. getHeader("x-forwarded-for"); 
+//		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+//		      ip = request.getHeader("Proxy-Client-IP"); 
+//		    } 
+//		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+//		      ip = request.getHeader("WL-Proxy-Client-IP"); 
+//		    } 
+//		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+//		      ip = request.getHeader("HTTP_CLIENT_IP"); 
+//		    } 
+//		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+//		      ip = request.getHeader("HTTP_X_FORWARDED_FOR"); 
+//		    } 
+//		    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+//		      ip = request.getRemoteAddr(); 
+//		    } 
+//
+			URI uri = new URI(req.getUri());
+//			uri.get
+			if (uri.getPath().equals("/favicon.ico")) {
+                return;
+            }
 			if(HttpHeaders.is100ContinueExpected(req)){
 				ctx.write(new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE));
 			}

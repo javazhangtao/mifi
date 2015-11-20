@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.FlowgoldExchangeMapper">
+	<resultMap id="FlowgoldExchange" type="com.mifi.po.mifi.FlowgoldExchange">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="figure" property="figure" jdbcType="BIGINT" />
+		<result column="flowgold_id" property="flowgoldId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="supply_id" property="supplyId" jdbcType="INTEGER" />
+		<result column="flow" property="flow" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getExchangeByPhone" resultMap="FlowgoldExchange" parameterType="Long">
+		select * from mifi_flowgold_exchange where flowgold_id = #{flowgoldId,jdbcType=BIGINT}
+	</select>
+
+	<insert id="insert" parameterType="FlowgoldExchange">
+		insert into mifi_flowgold_exchange
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="figure != null">
+				figure,
+			</if>
+			<if test="flowgoldId != null">
+				flowgold_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="supplyId != null">
+				supply_id,
+			</if>
+			<if test="flow != null">
+				flow,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="figure != null">
+				#{figure,jdbcType=BIGINT},
+			</if>
+			<if test="flowgoldId != null">
+				#{flowgoldId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="supplyId != null">
+				#{supplyId,jdbcType=INTEGER},
+			</if>
+			<if test="flow != null">
+				#{flow,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

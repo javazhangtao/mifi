@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.JoinDetailMapper" >
+  <resultMap id="JoinDetail" type="com.mifi.po.mifi.JoinDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_mac" property="deviceMac" jdbcType="VARCHAR" />
+    <result column="join_type" property="joinType" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="join_user_id" property="joinUserId" jdbcType="BIGINT" />
+    <result column="current_days_join_num" property="currentDaysJoinNum" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="getDeviceConnect" resultType="java.lang.Integer">
+    select count(1) from mifi_join_detail
+    where create_time &gt;= #{date} and user_id =#{userId} and join_type=#{joinType} and device_id=#{deviceId}
+  </select>
+  <select id="getDeviceConnectByStatistics" resultType="java.lang.Integer">
+    select count(1) from mifi_join_detail
+    where create_time &gt;= #{beginTime} and create_time &lt;= #{endTime} and user_id =#{userId}
+  </select>
+  <select id="getUserJoinDetailByDeviceMac" resultType="JoinDetail">
+    select * from mifi_join_detail
+    where user_id = #{userId} and device_id =#{deviceId} and join_type=1 order by modify_time DESC limit 1
+  </select>
+  <insert id="insert" parameterType="com.mifi.po.mifi.JoinDetail" >
+    insert into mifi_join_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="deviceMac != null" >
+        device_mac,
+      </if>
+      <if test="joinType != null" >
+        join_type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="joinUserId != null" >
+        join_user_id,
+      </if>
+      <if test="currentDaysJoinNum != null" >
+        current_days_join_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceMac != null" >
+        #{deviceMac,jdbcType=VARCHAR},
+      </if>
+      <if test="joinType != null" >
+        #{joinType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="joinUserId != null" >
+        #{joinUserId,jdbcType=BIGINT},
+      </if>
+      <if test="currentDaysJoinNum != null" >
+        #{currentDaysJoinNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+ </insert>
+</mapper>

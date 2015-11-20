@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.SoftwareMapper" >
+  <resultMap id="Software" type="com.mifi.po.mifi.Software" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="version_serial" property="versionSerial" jdbcType="VARCHAR" />
+    <result column="upgrade_content" property="upgradeContent" jdbcType="VARCHAR" />
+    <result column="version_type" property="versionType" jdbcType="INTEGER" />
+    <result column="is_new" property="isNew" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="getBestNewSoft" resultMap="Software" parameterType="java.lang.Integer" >
+    select * from mifi_software
+    where version_type = #{type,jdbcType=BIGINT} and is_new = 1
+  </select>
+</mapper>

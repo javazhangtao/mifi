@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.DeviceMapper">
+	<resultMap id="Device" type="com.mifi.po.mifi.Device">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="device_mode" property="deviceMode" jdbcType="VARCHAR" />
+		<result column="device_type" property="deviceType" jdbcType="VARCHAR" />
+		<result column="device_mac" property="deviceMac" jdbcType="VARCHAR" />
+		<result column="device_no" property="deviceNo" jdbcType="VARCHAR" />
+		<result column="device_code" property="deviceCode" jdbcType="VARCHAR" />
+		<result column="device_ip" property="deviceIp" jdbcType="VARCHAR" />
+		<result column="surplus_flow" property="surplusFlow" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="getDeviceByMac" resultMap="Device" parameterType="String">
+		select * from mifi_device
+		where device_mac = #{deviceMac,jdbcType=VARCHAR}
+	</select>
+	<select id="getDeviceById" resultMap="Device" parameterType="Long">
+		select * from mifi_device
+		where id = #{deviceId,jdbcType=BIGINT}
+	</select>
+
+</mapper>

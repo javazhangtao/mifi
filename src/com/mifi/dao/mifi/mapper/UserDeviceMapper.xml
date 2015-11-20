@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.UserDeviceMapper">
+	<resultMap id="UserDevice" type="com.mifi.po.mifi.UserDevice">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="device_id" property="deviceId" jdbcType="BIGINT" />
+		<result column="internet_status" property="internetStatus" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="getAvailableUserDevice" resultType="UserDevice">
+		select * from mifi_user_device where user_id = #{userId} and status=1
+	</select>
+	<select id="getUserDeviceStatus" resultType="UserDevice">
+		select * from mifi_user_device where user_id = #{userId} and device_id = #{deviceId}
+	</select>
+	<select id="getUserDeviceByUserId" resultType="UserDevice">
+		select * from mifi_user_device where user_id = #{userId}
+	</select>
+	<select id="getStartJobUserDevice" resultType="UserDevice">
+		select * from mifi_user_device where device_id = #{deviceId} and internet_status = 1 order by modify_time DESC limit 1
+	</select>
+	
+	<select id="getUserDeviceCountByDeviceMac" resultType="java.lang.Integer">
+		select count(1) from mifi_user_device where device_id = #{deviceId} and status = 1
+	</select>
+	
+	<update id="update" parameterType="UserDevice" >
+	    update mifi_user_device
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="internetStatus != null" >
+        internet_status = #{internetStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<insert id="insert" parameterType="UserDevice" >
+	    insert into mifi_user_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="internetStatus != null" >
+        internet_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="internetStatus != null" >
+        #{internetStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+    </trim>
+	 </insert>
+
+</mapper>

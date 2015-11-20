@@ -58,7 +58,18 @@ public class CryptAES {
 	
 	
 	public static void main(String[] args) {
-		System.out.println(Encrypt("mifiappserverkey","cln=userService&mod=sayHello&name=zhangtao"));
-		System.out.println(Decrypt("mifiappserverkey","Uqm2l6U8xSNNldqlEohByhmPB9xI+C4puiiQBnvtSFfh7KDIVQNyP2ZGUtwwCoaW"));
+//		System.out.println(Encrypt("mifiappserverkey","cln=userService&mod=sayHello&name=zhangtao"));
+//		System.out.println(Decrypt("mifiappserverkey","Uqm2l6U8xSNNldqlEohByhmPB9xI+C4puiiQBnvtSFfh7KDIVQNyP2ZGUtwwCoaW"));
+//		System.out.println(Encrypt("mifiappserverkey","cln=userServer&mod=getUserInfo&userId=16"));
+//		System.out.println(Decrypt("mifiappserverkey","g9FSLueLAGIlGSYNhIYUoLKU5ZmvgF4A2aY9DVhC7OTDlbF89KjP7UkeQ2xr1loz"));
+		System.out.println(Encrypt("mifiappserverkey","cln=authServer&mod=login&phone=18518299683&password=123456&type=1000&apIp=192.168.0.106"));
+		System.out.println(Encrypt("mifiappserverkey","cln=authServer&mod=login&phone=18518299666&password=123456&type=2000&apIp=192.168.0.106"));
+//		System.out.println(Decrypt("mifiappserverkey","kx4h7osiw18ztjcycvfhaqkmourgnxkdiqsfi8b9s9oy35h+yd9aygybnhtly"));
+		System.out.println(Decrypt("mifiappserverkey","KX4h7osiw18ZtJCycVfHAQkMourGNXkdIQSfi8B9s9OY35H%20yd9AYgYbnhTly/0QwcBvl7HmcEXxOoEbNSF%20g8YIqGd7aT2zLCGVHvvU3%20zv4IjkjOyEclrIVuSIWFY6"));
+		
+		String mess = "http://pass.eggwifi.com/portal?url=http://122.115.60.231:7654?q=KX4h7osiw18ZtJCycVfHAQkMourGNXkdIQSfi8B9s9OY35H+yd9AYgYbnhTly/";
+		String mess2 = "http://pass.eggwifi.com/portal?url=http://122.115.60.231:7654?q=KX4h7osiw18ZtJCycVfHAQkMourGNXkdIQSfi8B9s9OY35H+yd9AYgYbnhTly/0QwcBvl7HmcEXxOoEbNSF+g8YIqGd7aT2zLCGVHvvU3+zv4IjkjOyEclrIVuSIWFY6";
+		System.out.println(mess.length());
+		System.out.println(mess2.length());
 	}
 }

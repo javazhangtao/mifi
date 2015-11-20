@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.AttentionUserMapper" >
+  <resultMap id="AttentionUser" type="com.mifi.po.mifi.AttentionUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="phone_num" property="phone" jdbcType="VARCHAR" />
+    <result column="public_num" property="publicNum" jdbcType="VARCHAR" />
+    <result column="attention_time" property="attentionTime" jdbcType="DATE" />
+    <result column="adward_account" property="adwardAccount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="getInfoByNumber" resultType="INTEGER">
+  	select count(1) from mifi_attention_user where public_num = #{number,jdbcType=VARCHAR} and user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+</mapper>

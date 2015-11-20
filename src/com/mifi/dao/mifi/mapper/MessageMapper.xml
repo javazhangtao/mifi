@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.MessageMapper" >
+	<resultMap id="Message" type="com.mifi.po.mifi.Message" >
+	    <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="subject" property="subject" jdbcType="VARCHAR" />
+	    <result column="from_id" property="fromId" jdbcType="BIGINT" />
+	    <result column="to_id" property="toId" jdbcType="BIGINT" />
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="status" property="status" jdbcType="INTEGER" />
+	    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<select id="selectUnreadMessageCount" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+	    select count(1)
+	    from midi_message
+	    where to_id = #{toId,jdbcType=BIGINT} and status = 0
+	</select>
+	<select id="selectMessageListByToId" resultMap="Message" parameterType="java.lang.Long" >
+		select * from midi_message
+	    where to_id = #{toId,jdbcType=BIGINT}
+	</select>
+	<select id="selectMessageListByDay" resultMap="Message" >
+		select * from midi_message
+	    where to_id = #{toId} and create_time &gt;= #{beginTime} and create_time &lt;= #{endTime}
+	</select>
+	
+</mapper>

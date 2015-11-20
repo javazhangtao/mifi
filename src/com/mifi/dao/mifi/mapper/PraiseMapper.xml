@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.PraiseMapper">
+	<resultMap id="Praise" type="com.mifi.po.mifi.Praise">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="passenger_id" property="passengerId" jdbcType="BIGINT" />
+		<result column="driver_id" property="driverId" jdbcType="BIGINT" />
+		<result column="ap_mac" property="apMac" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="getPraiseTotalCount" resultType="java.lang.Integer"
+		parameterType="java.lang.Long">
+		select count(1) from mifi_praise where driver_id = #{userId,jdbcType=BIGINT}
+	</select>
+
+	<select id="getPraiseCount" resultType="java.lang.Integer">
+		select count(1) from mifi_praise where driver_id = #{0} and create_time
+		between #{1} and #{2}
+	</select>
+
+	<select id="getPraiseCountByDate" resultType="java.lang.Integer">
+		select count(1) from mifi_praise where driver_id = #{0} and create_time
+		between #{1} and #{2}
+	</select>
+
+	<insert id="insert" parameterType="Praise">
+		insert into mifi_praise
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="passengerId != null">
+				passenger_id,
+			</if>
+			<if test="driverId != null">
+				driver_id,
+			</if>
+			<if test="apMac != null">
+				ap_mac,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="passengerId != null">
+				#{passengerId,jdbcType=BIGINT},
+			</if>
+			<if test="driverId != null">
+				#{driverId,jdbcType=BIGINT},
+			</if>
+			<if test="apMac != null">
+				#{apMac,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

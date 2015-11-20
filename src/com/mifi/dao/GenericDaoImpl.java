@@ -15,8 +15,8 @@ import com.mifi.po.GenericEntity;
 @Repository
 public class GenericDaoImpl<T extends GenericEntity,ID extends Serializable> implements GenericDao<T, ID> {
 	
-	@Autowired
-	@Qualifier("jdbcTemplate")
+//	@Autowired
+//	@Qualifier("jdbcTemplate")
 	JdbcTemplate jdbcTemplate;
 
 	@Override

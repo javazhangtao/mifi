@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mifi.dao.mifi.FlowSupplyMapper" >
+  <resultMap id="FlowSupply" type="com.mifi.po.mifi.FlowSupply" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="supplier" property="supplier" jdbcType="INTEGER" />
+    <result column="volume" property="volume" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  <select id="getSupplyBySupplier" resultMap="FlowSupply">
+  	select * from mifi_flow_supply where supplier = #{supplier,jdbcType=INTEGER}
+  </select>
+</mapper>
